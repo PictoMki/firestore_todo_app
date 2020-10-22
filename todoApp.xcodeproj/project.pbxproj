@@ -18,8 +18,6 @@
 		DB2A3DC2253D7B6E00F1A445 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB2A3DC1253D7B6E00F1A445 /* GoogleService-Info.plist */; };
 		DB2A3DC4253D7D4A00F1A445 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2A3DC3253D7D4A00F1A445 /* SplashViewController.swift */; };
 		DBA77481253FC121000138FB /* TodoAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA77480253FC121000138FB /* TodoAddViewController.swift */; };
-		DBA77483253FC15B000138FB /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA77482253FC15B000138FB /* UserListViewController.swift */; };
-		DBA77485253FC183000138FB /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA77484253FC183000138FB /* MyPageViewController.swift */; };
 		DBA7748725412F92000138FB /* TodoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7748625412F92000138FB /* TodoEditViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,8 +37,6 @@
 		DB2A3DC1253D7B6E00F1A445 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB2A3DC3253D7D4A00F1A445 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		DBA77480253FC121000138FB /* TodoAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddViewController.swift; sourceTree = "<group>"; };
-		DBA77482253FC15B000138FB /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
-		DBA77484253FC183000138FB /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		DBA7748625412F92000138FB /* TodoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,8 +80,6 @@
 				71BDCD1C2539945500030DC4 /* TodoListViewController.swift */,
 				DBA77480253FC121000138FB /* TodoAddViewController.swift */,
 				DBA7748625412F92000138FB /* TodoEditViewController.swift */,
-				DBA77482253FC15B000138FB /* UserListViewController.swift */,
-				DBA77484253FC183000138FB /* MyPageViewController.swift */,
 				71BDCD0E25398E5E00030DC4 /* Main.storyboard */,
 				71BDCD1125398E6000030DC4 /* Assets.xcassets */,
 				71BDCD1325398E6000030DC4 /* LaunchScreen.storyboard */,
@@ -228,7 +222,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBA77483253FC15B000138FB /* UserListViewController.swift in Sources */,
 				DBA7748725412F92000138FB /* TodoEditViewController.swift in Sources */,
 				DBA77481253FC121000138FB /* TodoAddViewController.swift in Sources */,
 				71BDCD1D2539945500030DC4 /* TodoListViewController.swift in Sources */,
@@ -236,7 +229,6 @@
 				71BDCD0925398E5E00030DC4 /* AppDelegate.swift in Sources */,
 				71BDCD0B25398E5E00030DC4 /* SceneDelegate.swift in Sources */,
 				DB2A3DC4253D7D4A00F1A445 /* SplashViewController.swift in Sources */,
-				DBA77485253FC183000138FB /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
