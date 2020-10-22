@@ -35,7 +35,7 @@ class ViewController: UIViewController {
                             // 成功の場合
                             print("ユーザー作成完了 name:" + name)
                             let storyboard: UIStoryboard = self.storyboard!
-                            let next = storyboard.instantiateViewController(withIdentifier: "TodoViewController")
+                            let next = storyboard.instantiateViewController(withIdentifier: "TodoListViewController")
                             self.present(next, animated: true, completion: nil)
                         }
                     })
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
                     // 成功した場合
                     print("ログイン完了 uid:" + user.uid)
                     let storyboard: UIStoryboard = self.storyboard!
-                    let next = storyboard.instantiateViewController(withIdentifier: "TodoViewController")
+                    let next = storyboard.instantiateViewController(withIdentifier: "TodoListViewController")
                     self.present(next, animated: true, completion: nil)
                 } else if let error = error {
                     // 失敗した場合
