@@ -7,6 +7,7 @@ target 'todoApp' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'IQKeyboardManagerSwift'
 
   # Pods for todoApp
 

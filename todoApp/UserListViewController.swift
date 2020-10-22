@@ -1,10 +1,9 @@
 import UIKit
 
-class TodoViewController: UIViewController {
+class UserListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-
 }
