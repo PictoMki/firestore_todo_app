@@ -18,8 +18,8 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         
-        if let userId = Auth.auth().currentUser?.uid {
-            Firestore.firestore().collection("users").document(userId).getDocument(completion: {(snapshot,error) in
+        if let user = Auth.auth().currentUser {
+            Firestore.firestore().collection("users").document(user.uid).getDocument(completion: {(snapshot,error) in
                 if let snap = snapshot {
                     if let data = snap.data() {
                         self.userNameLabel.text = data["name"] as? String
@@ -33,9 +33,9 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let userId = Auth.auth().currentUser?.uid {
+        if let user = Auth.auth().currentUser {
             if listener == nil {
-                listener = Firestore.firestore().collection("users/\(userId)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").addSnapshotListener({ (snapshot, error) in
+                listener = Firestore.firestore().collection("users/\(user.uid)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").addSnapshotListener({ (snapshot, error) in
                     if let snap = snapshot {
                         var idArray:[String] = []
                         var titleArray:[String] = []
@@ -73,8 +73,8 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     func getTodoDataForFirestore() {
-        if let userId = Auth.auth().currentUser?.uid {
-            Firestore.firestore().collection("users/\(userId)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").getDocuments(completion: { (snapshot, error) in
+        if let user = Auth.auth().currentUser {
+            Firestore.firestore().collection("users/\(user.uid)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").getDocuments(completion: { (snapshot, error) in
                 if let snap = snapshot {
                     var idArray:[String] = []
                     var titleArray:[String] = []
@@ -109,8 +109,8 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let editAction = UIContextualAction(style: .normal,
                                             title: "Edit",
                                             handler: {(action: UIContextualAction, view: UIView, completion: (Bool) -> Void) in
-            if let userId = Auth.auth().currentUser?.uid {
-                Firestore.firestore().collection("users/\(userId)/todos").document(self.todoIdArray[indexPath.row]).updateData(
+            if let user = Auth.auth().currentUser {
+                Firestore.firestore().collection("users/\(user.uid)/todos").document(self.todoIdArray[indexPath.row]).updateData(
                     [
                         "isDone": !self.todoIsDoneArray[indexPath.row]
                     ]
@@ -140,8 +140,8 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let deleteAction = UIContextualAction(style: .normal,
                                               title: "Delete",
                                               handler: { (action: UIContextualAction, view: UIView, completion: (Bool) -> Void) in
-            if let userId = Auth.auth().currentUser?.uid {
-                Firestore.firestore().collection("users/\(userId)/todos").document(self.todoIdArray[indexPath.row]).delete(){ error in
+            if let user = Auth.auth().currentUser {
+                Firestore.firestore().collection("users/\(user.uid)/todos").document(self.todoIdArray[indexPath.row]).delete(){ error in
                     if let error = error {
                         print("TODO削除失敗: " + error.localizedDescription)
                         let dialog = UIAlertController(title: "TODO削除失敗", message: error.localizedDescription, preferredStyle: .alert)

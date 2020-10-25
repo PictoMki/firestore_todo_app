@@ -37,8 +37,8 @@ class TodoEditViewController: UIViewController {
     @IBAction func tapEditButton(_ sender: Any) {
         if let title = titleTextField.text,
             let detail = detailTextView.text {
-            if let userId = Auth.auth().currentUser?.uid {
-                Firestore.firestore().collection("users/\(userId)/todos").document(todoId).updateData(
+            if let user = Auth.auth().currentUser {
+                Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).updateData(
                     [
                         "title": title,
                         "detail": detail
@@ -59,8 +59,8 @@ class TodoEditViewController: UIViewController {
         }
     }
     @IBAction func tapDoneButton(_ sender: Any) {
-        if let userId = Auth.auth().currentUser?.uid {
-            Firestore.firestore().collection("users/\(userId)/todos").document(todoId).updateData(
+        if let user = Auth.auth().currentUser {
+            Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).updateData(
                 [
                     "isDone": !todoIsDone
                 ]
@@ -79,8 +79,8 @@ class TodoEditViewController: UIViewController {
     }
     
     @IBAction func tapDeleteButton(_ sender: Any) {
-        if let userId = Auth.auth().currentUser?.uid {
-            Firestore.firestore().collection("users/\(userId)/todos").document(todoId).delete(){ error in
+        if let user = Auth.auth().currentUser {
+            Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).delete(){ error in
                 if let error = error {
                     print("TODO削除失敗: " + error.localizedDescription)
                     let dialog = UIAlertController(title: "TODO削除失敗", message: error.localizedDescription, preferredStyle: .alert)
