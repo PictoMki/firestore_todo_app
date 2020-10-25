@@ -29,7 +29,6 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
-GoogleService-Info.plist
 
 ## Other
 *.moved-aside
