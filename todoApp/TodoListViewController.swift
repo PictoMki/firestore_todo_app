@@ -10,15 +10,18 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var todoDetailArray: [String] = []
     var todoIsDoneArray: [Bool] = []
     var isDone: Bool = false
-    
-    var listener: ListenerRegistration!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // ①ログイン済みかどうか確認
         if let user = Auth.auth().currentUser {
+            // ②ログインしているユーザー名の取得
             Firestore.firestore().collection("users").document(user.uid).getDocument(completion: {(snapshot,error) in
                 if let snap = snapshot {
                     if let data = snap.data() {
@@ -28,47 +31,30 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
                     print("ユーザー名取得失敗: " + error.localizedDescription)
                 }
             })
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let user = Auth.auth().currentUser {
-            if listener == nil {
-                listener = Firestore.firestore().collection("users/\(user.uid)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").addSnapshotListener({ (snapshot, error) in
-                    if let snap = snapshot {
-                        var idArray:[String] = []
-                        var titleArray:[String] = []
-                        var detailArray:[String] = []
-                        var isDoneArray:[Bool] = []
-                        for doc in snap.documents {
-                            let data = doc.data()
-                            idArray.append(doc.documentID)
-                            titleArray.append(data["title"] as! String)
-                            detailArray.append(data["detail"] as! String)
-                            isDoneArray.append(data["isDone"] as! Bool)
-                        }
-                        self.todoIdArray = idArray
-                        self.todoTitleArray = titleArray
-                        self.todoDetailArray = detailArray
-                        self.todoIsDoneArray = isDoneArray
-                        self.tableView.reloadData()
-                        
-                    } else if let error = error {
-                        print("TODO取得失敗: " + error.localizedDescription)
+            
+            Firestore.firestore().collection("users/\(user.uid)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").addSnapshotListener({ (querySnapshot, error) in
+                if let querySnapshot = querySnapshot {
+                    var idArray:[String] = []
+                    var titleArray:[String] = []
+                    var detailArray:[String] = []
+                    var isDoneArray:[Bool] = []
+                    for doc in querySnapshot.documents {
+                        let data = doc.data()
+                        idArray.append(doc.documentID)
+                        titleArray.append(data["title"] as! String)
+                        detailArray.append(data["detail"] as! String)
+                        isDoneArray.append(data["isDone"] as! Bool)
                     }
-                })
-            } else {
-                if listener != nil {
-                    listener.remove()
-                    listener = nil
-                    self.todoIdArray = []
-                    self.todoTitleArray = []
-                    self.todoDetailArray = []
-                    self.todoIsDoneArray = []
+                    self.todoIdArray = idArray
+                    self.todoTitleArray = titleArray
+                    self.todoDetailArray = detailArray
+                    self.todoIsDoneArray = isDoneArray
                     self.tableView.reloadData()
+                    
+                } else if let error = error {
+                    print("TODO取得失敗: " + error.localizedDescription)
                 }
-            }
+            })
         }
     }
     
@@ -103,6 +89,12 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoTitleArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = todoTitleArray[indexPath.row]
+        return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -162,12 +154,6 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         swipeActionConfig.performsFirstActionWithFullSwipe = false
         
         return swipeActionConfig
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = todoTitleArray[indexPath.row]
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

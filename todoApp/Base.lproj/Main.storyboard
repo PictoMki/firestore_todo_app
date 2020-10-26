@@ -182,7 +182,7 @@
         <!--Todo Edit View Controller-->
         <scene sceneID="0zJ-2U-J19">
             <objects>
-                <viewController storyboardIdentifier="TodoEditViewController" id="a8i-jm-zle" customClass="TodoEditViewController" customModule="todoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TodoEditViewController" modalPresentationStyle="fullScreen" id="a8i-jm-zle" customClass="TodoEditViewController" customModule="todoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MzB-Zx-JUd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
