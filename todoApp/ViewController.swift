@@ -21,9 +21,8 @@ class ViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: password, completion: { (result, error) in
                 if let user = result?.user {
                     print("ユーザー作成完了 uid:" + user.uid)
-                    // ②FirestoreのUsersコレクションにdocumentID = ログインしたuidでemailとnameを作成する
+                    // ②FirestoreのUsersコレクションにdocumentID = ログインしたuidでnameを作成する
                     Firestore.firestore().collection("users").document(user.uid).setData([
-                        "email": email,
                         "name": name
                     ], completion: { error in
                         if let error = error {
