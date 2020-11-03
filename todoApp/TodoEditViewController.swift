@@ -41,7 +41,8 @@ class TodoEditViewController: UIViewController {
                 Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).updateData(
                     [
                         "title": title,
-                        "detail": detail
+                        "detail": detail,
+                        "updatedAt": FieldValue.serverTimestamp()
                     ]
                     ,completion: { error in
                         if let error = error {
@@ -62,7 +63,8 @@ class TodoEditViewController: UIViewController {
         if let user = Auth.auth().currentUser {
             Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).updateData(
                 [
-                    "isDone": !todoIsDone
+                    "isDone": !todoIsDone,
+                    "updatedAt": FieldValue.serverTimestamp()
                 ]
                 ,completion: { error in
                     if let error = error {

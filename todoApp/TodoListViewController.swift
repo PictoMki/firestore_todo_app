@@ -104,7 +104,8 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
             if let user = Auth.auth().currentUser {
                 Firestore.firestore().collection("users/\(user.uid)/todos").document(self.todoIdArray[indexPath.row]).updateData(
                     [
-                        "isDone": !self.todoIsDoneArray[indexPath.row]
+                        "isDone": !self.todoIsDoneArray[indexPath.row],
+                        "updatedAt": FieldValue.serverTimestamp()
                     ]
                     ,completion: { error in
                         if let error = error {

@@ -23,12 +23,14 @@ class TodoAddViewController: UIViewController {
             // ②ログイン済みか確認
             if let user = Auth.auth().currentUser {
                 // ③FirestoreにTodoデータを作成する
+                let createdTime = FieldValue.serverTimestamp()
                 Firestore.firestore().collection("users/\(user.uid)/todos").document().setData(
                     [
                      "title": title,
                      "detail": detail,
                      "isDone": false,
-                     "createdAt": FieldValue.serverTimestamp()
+                     "createdAt": createdTime,
+                     "updatedAt": createdTime
                     ],merge: true
                     ,completion: { error in
                         if let error = error {
