@@ -19,6 +19,7 @@
 		DB5C164B25458EF100652E41 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB5C164A25458EF100652E41 /* GoogleService-Info.plist */; };
 		DBA77481253FC121000138FB /* TodoAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA77480253FC121000138FB /* TodoAddViewController.swift */; };
 		DBA7748725412F92000138FB /* TodoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7748625412F92000138FB /* TodoEditViewController.swift */; };
+		DBE784E62552392E00A44697 /* todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE784E52552392E00A44697 /* todo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		DB5C164A25458EF100652E41 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DBA77480253FC121000138FB /* TodoAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddViewController.swift; sourceTree = "<group>"; };
 		DBA7748625412F92000138FB /* TodoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditViewController.swift; sourceTree = "<group>"; };
+		DBE784E52552392E00A44697 /* todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				71BDCD1C2539945500030DC4 /* TodoListViewController.swift */,
 				DBA77480253FC121000138FB /* TodoAddViewController.swift */,
 				DBA7748625412F92000138FB /* TodoEditViewController.swift */,
+				DBE784E52552392E00A44697 /* todo.swift */,
 				71BDCD0E25398E5E00030DC4 /* Main.storyboard */,
 				71BDCD1125398E6000030DC4 /* Assets.xcassets */,
 				71BDCD1325398E6000030DC4 /* LaunchScreen.storyboard */,
@@ -225,6 +228,7 @@
 				DBA7748725412F92000138FB /* TodoEditViewController.swift in Sources */,
 				DBA77481253FC121000138FB /* TodoAddViewController.swift in Sources */,
 				71BDCD1D2539945500030DC4 /* TodoListViewController.swift in Sources */,
+				DBE784E62552392E00A44697 /* todo.swift in Sources */,
 				71BDCD0D25398E5E00030DC4 /* ViewController.swift in Sources */,
 				71BDCD0925398E5E00030DC4 /* AppDelegate.swift in Sources */,
 				71BDCD0B25398E5E00030DC4 /* SceneDelegate.swift in Sources */,
