@@ -20,7 +20,7 @@
 		DBA77481253FC121000138FB /* TodoAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA77480253FC121000138FB /* TodoAddViewController.swift */; };
 		DBA7748725412F92000138FB /* TodoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7748625412F92000138FB /* TodoEditViewController.swift */; };
 		DBE784E62552392E00A44697 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE784E52552392E00A44697 /* Todo.swift */; };
-		DBE784E82552510600A44697 /* ErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE784E72552510600A44697 /* ErrorUtil.swift */; };
+		DBE784E82552510600A44697 /* FuncUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE784E72552510600A44697 /* FuncUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +41,7 @@
 		DBA77480253FC121000138FB /* TodoAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddViewController.swift; sourceTree = "<group>"; };
 		DBA7748625412F92000138FB /* TodoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditViewController.swift; sourceTree = "<group>"; };
 		DBE784E52552392E00A44697 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
-		DBE784E72552510600A44697 /* ErrorUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorUtil.swift; sourceTree = "<group>"; };
+		DBE784E72552510600A44697 /* FuncUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 				DBA77480253FC121000138FB /* TodoAddViewController.swift */,
 				DBA7748625412F92000138FB /* TodoEditViewController.swift */,
 				DBE784E52552392E00A44697 /* Todo.swift */,
-				DBE784E72552510600A44697 /* ErrorUtil.swift */,
+				DBE784E72552510600A44697 /* FuncUtil.swift */,
 				71BDCD0E25398E5E00030DC4 /* Main.storyboard */,
 				71BDCD1125398E6000030DC4 /* Assets.xcassets */,
 				71BDCD1325398E6000030DC4 /* LaunchScreen.storyboard */,
@@ -232,7 +232,7 @@
 				DBA77481253FC121000138FB /* TodoAddViewController.swift in Sources */,
 				71BDCD1D2539945500030DC4 /* TodoListViewController.swift in Sources */,
 				DBE784E62552392E00A44697 /* Todo.swift in Sources */,
-				DBE784E82552510600A44697 /* ErrorUtil.swift in Sources */,
+				DBE784E82552510600A44697 /* FuncUtil.swift in Sources */,
 				71BDCD0D25398E5E00030DC4 /* ViewController.swift in Sources */,
 				71BDCD0925398E5E00030DC4 /* AppDelegate.swift in Sources */,
 				71BDCD0B25398E5E00030DC4 /* SceneDelegate.swift in Sources */,

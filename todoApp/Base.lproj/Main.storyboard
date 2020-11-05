@@ -483,7 +483,7 @@
         <!--Todo Add View Controller-->
         <scene sceneID="2MW-j6-Ugz">
             <objects>
-                <viewController storyboardIdentifier="TodoAddViewController" id="dZh-7j-eBF" customClass="TodoAddViewController" customModule="todoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TodoAddViewController" modalPresentationStyle="fullScreen" id="dZh-7j-eBF" customClass="TodoAddViewController" customModule="todoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IPb-Fs-0bp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

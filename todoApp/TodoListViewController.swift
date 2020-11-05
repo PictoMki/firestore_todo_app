@@ -68,7 +68,7 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
                                             handler: {(action: UIContextualAction, view: UIView, completion: (Bool) -> Void) in
                                                 Todo.isDoneUpdate(todo: self.todoArray[indexPath.row], completion: { error in
                                                     if let error = error {
-                                                        ErrorUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
+                                                        FuncUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
                                                     } else {
                                                         print("TODO更新成功")
                                                         self.getTodoDataForFirestore()
@@ -90,7 +90,7 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
                                               handler: { (action: UIContextualAction, view: UIView, completion: (Bool) -> Void) in
                                                 Todo.delete(todo: self.todoArray[indexPath.row], completion: { error in
                                                     if let error = error {
-                                                        ErrorUtil.showErrorDialog(error: error, title: "TODO削除失敗", viewController: self)
+                                                        FuncUtil.showErrorDialog(error: error, title: "TODO削除失敗", viewController: self)
                                                     } else {
                                                         print("TODO削除成功")
                                                         self.getTodoDataForFirestore()
@@ -116,9 +116,7 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     @IBAction func tapAddButton(_ sender: Any) {
-        let storyboard: UIStoryboard = self.storyboard!
-        let next = storyboard.instantiateViewController(withIdentifier: "TodoAddViewController")
-        self.present(next, animated: true, completion: nil)
+        FuncUtil.presentNextViewController(nowViewController: self, withIdentifier: "TodoAddViewController")
     }
     
     @IBAction func tapLogoutButton(_ sender: Any) {
@@ -126,11 +124,9 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
             do {
                 try Auth.auth().signOut()
                 print("ログアウト完了")
-                let storyboard: UIStoryboard = self.storyboard!
-                let next = storyboard.instantiateViewController(withIdentifier: "ViewController")
-                self.present(next, animated: true, completion: nil)
+                FuncUtil.presentNextViewController(nowViewController: self, withIdentifier: "ViewController")
             } catch let error as NSError {
-                ErrorUtil.showErrorDialog(error: error, title: "ログアウト失敗", viewController: self)
+                FuncUtil.showErrorDialog(error: error, title: "ログアウト失敗", viewController: self)
             }
         }
     }

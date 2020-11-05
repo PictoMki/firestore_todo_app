@@ -17,13 +17,9 @@ class SplashViewController: UIViewController {
                 self.imageView.transform = CGAffineTransform(scaleX: 20, y: 20)
             }) { bool in
                 if Auth.auth().currentUser != nil {
-                    let storyboard: UIStoryboard = self.storyboard!
-                    let next = storyboard.instantiateViewController(withIdentifier: "TodoListViewController")
-                    self.present(next, animated: true, completion: nil)
+                    FuncUtil.presentNextViewController(nowViewController: self, withIdentifier: "TodoListViewController")
                 } else {
-                    let storyboard: UIStoryboard = self.storyboard!
-                    let next = storyboard.instantiateViewController(withIdentifier: "ViewController")
-                    self.present(next, animated: true, completion: nil)
+                    FuncUtil.presentNextViewController(nowViewController: self, withIdentifier: "ViewController")
                 }
             }
         }

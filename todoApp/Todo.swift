@@ -17,17 +17,24 @@ class Todo: NSObject {
         self.detail = data["detail"] as! String
         self.isDone = data["isDone"] as! Bool
         
-        let createdAtTimestamp = data["createdAt"] as! Timestamp
-        let updatedAtTimestamp = data["updatedAt"] as! Timestamp
+        let createdAtTimestamp = data["createdAt"] as? Timestamp
+        let updatedAtTimestamp = data["updatedAt"] as? Timestamp
         
-        self.createdAt = createdAtTimestamp.dateValue()
-        self.updatedAt = updatedAtTimestamp.dateValue()
+        if let createdAt = createdAtTimestamp,
+            let updatedAt = updatedAtTimestamp {
+            self.createdAt = createdAt.dateValue()
+            self.updatedAt = updatedAt.dateValue()
+        } else {
+            self.createdAt = Date()
+            self.updatedAt = Date()
+        }
+        
     }
     
     static func getTodoList(isDone: Bool, completion: @escaping ([Todo]?,Error?)->()){
-        var todoList:[Todo] = []
         if let user = Auth.auth().currentUser {
             Firestore.firestore().collection("users/\(user.uid)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").getDocuments(completion: {(querySnapshot, error) in
+                var todoList:[Todo] = []
                 if let querySnapshot = querySnapshot {
                     let documents = querySnapshot.documents
                     for doc in documents {
@@ -43,9 +50,9 @@ class Todo: NSObject {
     }
     
     static func todoListListener(isDone: Bool, completion: @escaping ([Todo]?,Error?)->()){
-        var todoList:[Todo] = []
         if let user = Auth.auth().currentUser {
             Firestore.firestore().collection("users/\(user.uid)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").addSnapshotListener({(querySnapshot, error) in
+                var todoList:[Todo] = []
                 if let querySnapshot = querySnapshot {
                     let documents = querySnapshot.documents
                     for doc in documents {
@@ -82,7 +89,7 @@ class Todo: NSObject {
     
     static func isDoneUpdate(todo: Todo, completion: @escaping (Error?)->()) {
         if let user = Auth.auth().currentUser {
-            Firestore.firestore().collection("users/\(user.uid)/todos").document().updateData(
+            Firestore.firestore().collection("users/\(user.uid)/todos").document(todo.id).updateData(
                 [
                     "isDone": !todo.isDone,
                     "updatedAt": FieldValue.serverTimestamp()
@@ -98,7 +105,7 @@ class Todo: NSObject {
     
     static func contentUpdate(todo: Todo, completion: @escaping (Error?)->()) {
         if let user = Auth.auth().currentUser {
-            Firestore.firestore().collection("users/\(user.uid)/todos").document().updateData(
+            Firestore.firestore().collection("users/\(user.uid)/todos").document(todo.id).updateData(
                 [
                     "title": todo.title,
                     "detail": todo.detail,

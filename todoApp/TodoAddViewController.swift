@@ -22,7 +22,7 @@ class TodoAddViewController: UIViewController {
             let detail = detailTextView.text {
             Todo.create(title: title, detail: detail, completion: { error in
                 if let error = error {
-                    ErrorUtil.showErrorDialog(error: error,title: "TODO追加失敗", viewController: self)
+                    FuncUtil.showErrorDialog(error: error,title: "TODO追加失敗", viewController: self)
                 } else {
                     print("TODO作成成功")
                     self.dismiss(animated: true, completion: nil)

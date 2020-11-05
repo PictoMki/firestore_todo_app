@@ -43,7 +43,7 @@ class TodoEditViewController: UIViewController {
             todo.detail = detail
             Todo.contentUpdate(todo: todo, completion: { error in
                 if let error = error {
-                    ErrorUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
+                    FuncUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
                 } else {
                     print("TODO更新成功")
                     self.dismiss(animated: true, completion: nil)
@@ -55,7 +55,7 @@ class TodoEditViewController: UIViewController {
     @IBAction func tapDoneButton(_ sender: Any) {
         Todo.isDoneUpdate(todo: todo, completion: { error in
             if let error = error {
-                ErrorUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
+                FuncUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
             } else {
                 print("TODO更新成功")
                 self.dismiss(animated: true, completion: nil)
@@ -66,7 +66,7 @@ class TodoEditViewController: UIViewController {
     @IBAction func tapDeleteButton(_ sender: Any) {
         Todo.delete(todo: todo, completion: { error in
             if let error = error {
-                ErrorUtil.showErrorDialog(error: error, title: "TODO削除失敗", viewController: self)
+                FuncUtil.showErrorDialog(error: error, title: "TODO削除失敗", viewController: self)
             } else {
                 print("TODO削除成功")
                 self.dismiss(animated: true, completion: nil)
