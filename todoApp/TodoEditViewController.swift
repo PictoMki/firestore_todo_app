@@ -12,12 +12,14 @@ class TodoEditViewController: UIViewController {
     var todoDetail: String!
     var todoIsDone: Bool!
     
+    var todo: Todo!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleTextField.text = todoTitle
-        detailTextView.text = todoDetail
+        titleTextField.text = todo.title
+        detailTextView.text = todo.detail
         
-        switch todoIsDone {
+        switch todo.isDone {
         case false:
             isDoneLabel.text = "未完了"
             doneButton.setTitle("完了済みにする", for: .normal)
@@ -37,62 +39,38 @@ class TodoEditViewController: UIViewController {
     @IBAction func tapEditButton(_ sender: Any) {
         if let title = titleTextField.text,
             let detail = detailTextView.text {
-            if let user = Auth.auth().currentUser {
-                Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).updateData(
-                    [
-                        "title": title,
-                        "detail": detail,
-                        "updatedAt": FieldValue.serverTimestamp()
-                    ]
-                    ,completion: { error in
-                        if let error = error {
-                            print("TODO更新失敗: " + error.localizedDescription)
-                            let dialog = UIAlertController(title: "TODO更新失敗", message: error.localizedDescription, preferredStyle: .alert)
-                            dialog.addAction(UIAlertAction(title: "OK", style: .default))
-                            self.present(dialog, animated: true, completion: nil)
-                        } else {
-                            print("TODO更新成功")
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                })
-            }
-            
-        }
-    }
-    @IBAction func tapDoneButton(_ sender: Any) {
-        if let user = Auth.auth().currentUser {
-            Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).updateData(
-                [
-                    "isDone": !todoIsDone,
-                    "updatedAt": FieldValue.serverTimestamp()
-                ]
-                ,completion: { error in
-                    if let error = error {
-                        print("TODO更新失敗: " + error.localizedDescription)
-                        let dialog = UIAlertController(title: "TODO更新失敗", message: error.localizedDescription, preferredStyle: .alert)
-                        dialog.addAction(UIAlertAction(title: "OK", style: .default))
-                        self.present(dialog, animated: true, completion: nil)
-                    } else {
-                        print("TODO更新成功")
-                        self.dismiss(animated: true, completion: nil)
-                    }
+            todo.title = title
+            todo.detail = detail
+            Todo.contentUpdate(todo: todo, completion: { error in
+                if let error = error {
+                    ErrorUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
+                } else {
+                    print("TODO更新成功")
+                    self.dismiss(animated: true, completion: nil)
+                }
             })
         }
     }
     
-    @IBAction func tapDeleteButton(_ sender: Any) {
-        if let user = Auth.auth().currentUser {
-            Firestore.firestore().collection("users/\(user.uid)/todos").document(todoId).delete(){ error in
-                if let error = error {
-                    print("TODO削除失敗: " + error.localizedDescription)
-                    let dialog = UIAlertController(title: "TODO削除失敗", message: error.localizedDescription, preferredStyle: .alert)
-                    dialog.addAction(UIAlertAction(title: "OK", style: .default))
-                    self.present(dialog, animated: true, completion: nil)
-                } else {
-                    print("TODO削除成功")
-                    self.dismiss(animated: true, completion: nil)
-                }
+    @IBAction func tapDoneButton(_ sender: Any) {
+        Todo.isDoneUpdate(todo: todo, completion: { error in
+            if let error = error {
+                ErrorUtil.showErrorDialog(error: error, title: "TODO更新失敗", viewController: self)
+            } else {
+                print("TODO更新成功")
+                self.dismiss(animated: true, completion: nil)
             }
-        }
+        })
+    }
+    
+    @IBAction func tapDeleteButton(_ sender: Any) {
+        Todo.delete(todo: todo, completion: { error in
+            if let error = error {
+                ErrorUtil.showErrorDialog(error: error, title: "TODO削除失敗", viewController: self)
+            } else {
+                print("TODO削除成功")
+                self.dismiss(animated: true, completion: nil)
+            }
+        })
     }
 }

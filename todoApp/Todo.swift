@@ -42,15 +42,34 @@ class Todo: NSObject {
         }
     }
     
+    static func todoListListener(isDone: Bool, completion: @escaping ([Todo]?,Error?)->()){
+        var todoList:[Todo] = []
+        if let user = Auth.auth().currentUser {
+            Firestore.firestore().collection("users/\(user.uid)/todos").whereField("isDone", isEqualTo: isDone).order(by: "createdAt").addSnapshotListener({(querySnapshot, error) in
+                if let querySnapshot = querySnapshot {
+                    let documents = querySnapshot.documents
+                    for doc in documents {
+                        let todo = Todo(doc: doc)
+                        todoList.append(todo)
+                    }
+                    completion(todoList,nil)
+                } else if let error = error {
+                    completion([],error)
+                }
+            })
+        }
+    }
+    
     static func create(title: String, detail: String, completion: @escaping (Error?)->()) {
         if let user = Auth.auth().currentUser {
+            let createdTime = FieldValue.serverTimestamp()
             Firestore.firestore().collection("users/\(user.uid)/todos").document().setData(
                 [
                     "title": title,
                     "detail": detail,
                     "isDone": false,
-                    "createdAt": FieldValue.serverTimestamp(),
-                    "updatedAt": FieldValue.serverTimestamp()
+                    "createdAt": createdTime,
+                    "updatedAt": createdTime
             ], merge: true){ error in
                 if let error = error {
                     completion(error)
