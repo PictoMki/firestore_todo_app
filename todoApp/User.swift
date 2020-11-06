@@ -4,12 +4,12 @@ class User: NSObject {
     var id: String
     var name: String
     
-    init(doc: QueryDocumentSnapshot) {
+    init(doc: DocumentSnapshot) {
         self.id = doc.documentID
         
         let data = doc.data()
         
-        self.name = data["name"] as! String
+        self.name = data!["name"] as! String
     }
     
     static func registerUserToAuthentication(email: String, password: String, completion: @escaping (Firebase.User?,Error?)->()) {
@@ -42,5 +42,18 @@ class User: NSObject {
                 completion(nil)
             }
         })
+    }
+    
+    static func getUserDataForFirestore(completion: @escaping (User?,Error?)->()) {
+        if let user = Auth.auth().currentUser {
+            Firestore.firestore().collection("users").document(user.uid).getDocument(completion: {(snapshot,error) in
+                if let snap = snapshot {
+                    let user = User(doc: snap)
+                    completion(user,nil)
+                } else if let error = error {
+                    completion(nil,error)
+                }
+            })
+        }
     }
 }

@@ -16,19 +16,13 @@ class TodoListViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // ①ログイン済みかどうか確認
-        if let user = Auth.auth().currentUser {
-            // ②ログインしているユーザー名の取得
-            Firestore.firestore().collection("users").document(user.uid).getDocument(completion: {(snapshot,error) in
-                if let snap = snapshot {
-                    if let data = snap.data() {
-                        self.userNameLabel.text = data["name"] as? String
-                    }
-                } else if let error = error {
-                    print("ユーザー名取得失敗: " + error.localizedDescription)
-                }
-            })
-        }
+        User.getUserDataForFirestore(completion: { (user, error) in
+            if let user = user {
+                self.userNameLabel.text = user.name
+            } else if let error = error {
+                print("ユーザー名取得失敗: " + error.localizedDescription)
+            }
+        })
         Todo.todoListListener(isDone: isDone, completion: { (todoList, error) in
             if let todoList = todoList {
                 self.todoArray = todoList
